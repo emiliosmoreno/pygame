@@ -13,10 +13,10 @@ class PyGameClass:
      # Ejecución del juego      
     def run(self):
         while True: # main game loop
-            #for evento in pygame.event.get():
-            #    if evento.type == K_p:
-            #        pygame.quit()
-            #        sys.exit()
+            for evento in pygame.event.get():
+                if evento.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
             pygame.display.update()
 
 # Llamada principal          
