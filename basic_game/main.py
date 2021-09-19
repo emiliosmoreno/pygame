@@ -11,6 +11,8 @@ import sys
 from constantes import * #Importamos nuestro módulo constantes
 from eventos import * #Importamos nuestro módulo para gestionar los eventos
 from utilidades import * #Importamos nuestro módulo que contiene las utilidades
+from pygame.locals import *
+
 class Main:
     
      # Método de inicialización   
@@ -23,23 +25,25 @@ class Main:
         self.escena=pygame.display.set_mode(Constantes.SIZE_WINDOW)
         self.clock = pygame.time.Clock()
         self.en_pausa=False     #Define si el juego está en pause o no
-        self.font = pygame.font.SysFont("Arial", 50)
-
+        self.large_font = pygame.font.SysFont("Arial", 50)
+        self.small_font = pygame.font.SysFont("Arial", 25)
+        Utilidades.pintar_icono(self)
+        
     # Ejecución del juego      
     def run(self):
-        while True: # main game loop  
+        while True: # Bucle principal  
 
             self.clock.tick(Constantes.VELOCIDAD)
-            self.escena.fill(Constantes.COLOR_BLACK) 
+            self.escena.fill(Constantes.COLOR_BLACK) #Se borra toda la escena
 
             while not self.en_pausa: 
                 ManejadorEventos.run(self)
                 Utilidades.pintar_pausa_juego(self)
-                pygame.display.update()
+                pygame.display.update() #Se actualiza la escena
 
             ManejadorEventos.run(self)
             Utilidades.pintar_pausa_juego(self)
-            pygame.display.update()
+            pygame.display.update() #Se actualiza la escena
 
  
 

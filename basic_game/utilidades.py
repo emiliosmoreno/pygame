@@ -18,7 +18,12 @@ class Utilidades:
 
         if (self.en_pausa): 
             self.escena.blit(
-                self.font.render("PAUSA",-1,Constantes.COLOR_WHITE),
+                self.large_font.render("PAUSA",-1,Constantes.COLOR_WHITE),
                                 (Constantes.WIDTH/2 - 50, 50)) 
             
+    # Método encargado de configurar el icono del juego
+    # requisito: debe existir un atributo denominado 'icono'
+    def pintar_icono(self):
+        self.icono = pygame.image.load('basic_game/img/tools.png')
+        pygame.display.set_icon(self.icono)
             
