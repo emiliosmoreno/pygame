@@ -20,7 +20,7 @@ class Main:
      # Método de inicialización   
     def __init__(self):
         
-        pygame.display.set_caption("Hello World! by @emiliosmoreno")
+        pygame.display.set_caption("Memory! by @emiliosmoreno")
         pygame.font.init()
         
         #definición de atributos del juego
@@ -32,7 +32,8 @@ class Main:
         Utilidades.pintar_icono(self)
 
         self.game=MemoryCardGame(self.escena) #Inicialización del juego
-      
+        MemoryCardGame.colocar_cartas_mesa(self.game)
+
     # Ejecución del juego      
     def run(self):
         while True: # Bucle principal  
@@ -42,9 +43,9 @@ class Main:
 
             while not self.en_pausa: 
                 ManejadorEventos.run(self)
-                Utilidades.pintar_pausa_juego(self)
-                pygame.display.update() #Se actualiza la escena
+                Utilidades.pintar_pausa_juego(self) 
                 MemoryCardGame.pintar_cartas(self, self.game.mesa, self.escena)                
+                pygame.display.update() #Se actualiza la escena
 
             ManejadorEventos.run(self)
             Utilidades.pintar_pausa_juego(self)
