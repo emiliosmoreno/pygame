@@ -19,6 +19,7 @@ class MemoryCardGame:
     def __init__(self, escena):
         self.mesa=list()    #inicialización de las cartas
         self.escena=escena
+        self.carta_seleccionada=None #Las cartas seleccionadas
 
         for numero in range(1,13):
             for palo in ('c','d','h','s'):
@@ -79,13 +80,45 @@ class MemoryCardGame:
         # handle MOUSEBUTTONUP
         if evento.type == pygame.MOUSEBUTTONUP:
                 pos = pygame.mouse.get_pos() 
-                MemoryCardGame.cambiar_cartas(self, self.mesa, pos[0], pos[1]) 
+                MemoryCardGame.cambiar_cartas(self, pos[0], pos[1]) 
 
-    def cambiar_cartas(self, mesa, x, y):
-        self.mesa=mesa
+    def cambiar_cartas(self, x, y): 
         for pos in range(0,MemoryCardGame.MAX_CARDS_IN_TABLE):
-            carta=self.mesa[pos]
+            carta=self.game.mesa[pos]
             if (x >= carta.posx and x<=carta.posx+Card.ANCHO):
                 if (y>=carta.posy and y<=carta.posy+Card.ALTO):
-                    Card.cambiar_carta(carta)
+                    if (self.game.carta_seleccionada==None):
+                        self.game.carta_seleccionada=carta
+                        Card.cambiar_carta(carta)
+                    else:
+                        print("Carta seleccionada: "+str(self.game.carta_seleccionada.numero)+"-"+str(self.game.carta_seleccionada.palo))
+                        print("Carta: "+str(carta.numero)+"-"+str(carta.palo))
+                        esIgual=False
+                        if (carta.numero==self.game.carta_seleccionada.numero and carta.palo==self.game.carta_seleccionada.palo):
+                            esIgual=True
+                            print("Son iguales")
+                        
+                        if (esIgual):
+                            
+                            Card.cambiar_carta(carta)
+                            self.escena.fill(Constantes.COLOR_BLACK) #Se borra toda la escena 
+                            MemoryCardGame.pintar_cartas(self, self.game.mesa, self.escena)                
+                            pygame.display.update() #Se actualiza la escena
+                            pygame.time.wait(2000)
+
+                            self.game.carta_seleccionada.setPintar(False)
+                            carta.setPintar(False)
+                            self.game.carta_seleccionada=None
+                            
+                        else:
+                            esIgual=False
+                            Card.cambiar_carta(carta)
+                            self.escena.fill(Constantes.COLOR_BLACK) #Se borra toda la escena 
+                            MemoryCardGame.pintar_cartas(self, self.game.mesa, self.escena)                
+                            pygame.display.update() #Se actualiza la escena
+                            pygame.time.wait(2000)
+
+                            Card.cambiar_carta(self.game.carta_seleccionada)
+                            Card.cambiar_carta(carta)
+                            self.game.carta_seleccionada=None
             

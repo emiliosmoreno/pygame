@@ -41,7 +41,8 @@ class Main:
             self.clock.tick(Constantes.VELOCIDAD)
             self.escena.fill(Constantes.COLOR_BLACK) #Se borra toda la escena
 
-            while not self.en_pausa: 
+            while not self.en_pausa:
+                self.escena.fill(Constantes.COLOR_BLACK) #Se borra toda la escena 
                 ManejadorEventos.run(self)
                 Utilidades.pintar_pausa_juego(self) 
                 MemoryCardGame.pintar_cartas(self, self.game.mesa, self.escena)                
