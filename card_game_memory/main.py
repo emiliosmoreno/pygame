@@ -45,7 +45,8 @@ class Main:
                 self.escena.fill(Constantes.COLOR_BLACK) #Se borra toda la escena 
                 ManejadorEventos.run(self)
                 Utilidades.pintar_pausa_juego(self) 
-                MemoryCardGame.pintar_cartas(self, self.game.mesa, self.escena)                
+                MemoryCardGame.pintar_cartas(self, self.game.mesa, self.escena)   
+                MemoryCardGame.pintar_marcador(self)               
                 pygame.display.update() #Se actualiza la escena
 
             ManejadorEventos.run(self)
